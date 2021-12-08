@@ -8,15 +8,21 @@ class Ship
   end
 
   def health
-    #health counter starting at length that decrements to 0
+    @health
   end
 
   def sunk?
     #boolean with health comparison when 0 returns true
+    if @health == 0
+      true
+    else
+      false
+    end
   end
 
   def hit
     #boolean with comparison to cell location
+    @health -= 1
   end
 
 end
