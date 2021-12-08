@@ -10,8 +10,6 @@ RSpec.describe Ship do
       expect(cruiser.length).to be(3)
       expect(cruiser.health).to be(3)
       expect(cruiser.sunk?).to be(false)
-      # expect(cruiser.hit).to be(true)
-      # expect(cruiser.sunk?).to be(true?)
     end
 
     it "hit, new health, not sunk" do
@@ -27,6 +25,14 @@ RSpec.describe Ship do
       cruiser.hit
       expect(cruiser.health).to eq(1)
       expect(cruiser.sunk?).to be(false)
+    end
+
+    it "hit 4, new health, Sunk return true" do
+      cruiser = Ship.new("Cruiser", 3)
+      cruiser.hit
+      cruiser.hit
+      cruiser.hit
+      expect(cruiser.sunk?).to be(true)
     end
   end
 end
