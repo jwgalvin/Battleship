@@ -51,16 +51,18 @@ class Cell
       @ship = ship
   end
 
-  # def fire_upon
-  #   #input of cell location
-  # end
+  def fired_upon?
+     #input of cell location
+     ship.hit == true
+  end
 
-  # def fire_upon?
-  #
-  # end
+  def fire_upon
+   @ship.hit
+   @hit = true
+  end
 
   # def ship.health
-  #   #length - fire_upon values
+    #length - fire_upon values
   # end
 
   # def render
