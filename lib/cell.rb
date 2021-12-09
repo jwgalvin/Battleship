@@ -43,11 +43,6 @@ class Cell
     # end
   end
 
-  # def rows
-  #
-  # end
-
-
 #---------------------- Expect rspec loop 1
   def place_ship(ship)
     #hash of cells
@@ -70,7 +65,6 @@ class Cell
 
   def render
     if @ship == nil
-
       if @fired_upon
         @render_me = "M"
       else
@@ -84,5 +78,12 @@ class Cell
       @render_me
     end
 
+    if @ship 
+      if @ship.sunk?
+        @render_me = "X"
+      end
+      #@render_me
+    end
+    @render_me
   end
 end
