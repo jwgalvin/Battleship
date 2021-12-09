@@ -1,6 +1,6 @@
-require './lib/ship'
 require 'rspec'
 require 'pry'
+require './lib/ship'
 
 RSpec.describe Ship do
   describe "Iteration 1" do
