@@ -1,6 +1,6 @@
 class Cell
-  attr_reader :row,
-              :column
+  attr_reader :ship,
+              :coordinate
 
   def initialize(place)
     @place = place
@@ -34,11 +34,12 @@ class Cell
   end
 
   def empty?
-    if ship == nil
-      true
-    else
-      false
-    end
+    @ship == nil
+    # if ship == nil
+    #   true
+    # else
+    #   false
+    # end
   end
 
   # def rows
@@ -54,13 +55,14 @@ class Cell
 
   def fired_upon?
      # if @ship && !@fired_upon
-    @ship.hit == true
-
+    # @ship.hit == true
+    @fired_upon
   end
 
   def fire_upon
+  @ship == true
     @ship.hit
-    @fired_upon == true
+  @fired_upon = true
   end
 
   # def render
