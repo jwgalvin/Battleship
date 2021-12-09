@@ -16,7 +16,7 @@ describe Cell do
 
     it "2nd expect block" do
       cruiser = Ship.new("Cruiser", 3)
-      cell = Cell.new("B4" )
+      cell = Cell.new("B4")
       cell.place_ship(cruiser)
       expect(cruiser.class).to be(Ship)
       ##  no return in TTD expect(cell.place_ship(cruiser)).to be(true)
@@ -26,10 +26,9 @@ describe Cell do
 
     it "3rd expect block" do
       cruiser = Ship.new("Cruiser", 3)
-      cell = Cell.new("B4" )
-      #expect(cell = Cell.new("B4")).to be_instance_of(Cell)
-      #expect(cruiser = Ship.new("Cruiser", 3)).to be_instance_of(Ship)
-      #expect(cell.place_ship(cruiser)).to be(true)
+      cell = Cell.new("B4")
+      cell.place_ship(cruiser)
+      expect(cell.empty?).to be(false)
       #expect(cell.fired_upon?).to be(false)
       #expect(cell.fire_upon).to be(true)
       #expect(cell.ship.health).to eq(2)
