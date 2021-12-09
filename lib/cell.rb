@@ -4,6 +4,7 @@ class Cell
 
   def initialize(place)
     @place = place
+    @ship = nil
   end
 
 
@@ -23,7 +24,7 @@ class Cell
     column = accumulator[1]
     #letters are row, numbers are columns
     #method will split the name up into row/column.
-    #hash.new{|h,k,v| h[k] =1}
+    #hash.new{|h,k,v| h[k] =0}
     @place
   end
 
@@ -32,22 +33,23 @@ class Cell
   end
 
   def empty?
-    if nil || 0
+    if ship == nil
       true
     else
       false
     end
   end
 
-  def rows
-
-  end
+  # def rows
+  #
+  # end
 
 
 #---------------------- Expect rspec loop 1
-  # def place_ship
-  #   #array of cells
-  # end
+  def place_ship(ship)
+    #hash of cells
+      @ship = ship
+  end
 
   # def fire_upon
   #   #input of cell location
