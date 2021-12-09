@@ -41,11 +41,6 @@ class Cell
     end
   end
 
-  # def rows
-  #
-  # end
-
-
 #---------------------- Expect rspec loop 1
   def place_ship(ship)
     #hash of cells
