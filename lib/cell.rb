@@ -6,6 +6,7 @@ class Cell
     @place = place
     @ship = nil
     @fired_upon = false
+    @render_me = "."
   end
 
 
@@ -69,11 +70,19 @@ class Cell
 
   def render
     if @ship == nil
+
       if @fired_upon
-        "M"
+        @render_me = "M"
       else
-        "."
+        @render_me
       end
+    else
+      #there is a ship
+      if @fired_upon
+        @render_me = "H"
+      end
+      @render_me
     end
+
   end
 end
