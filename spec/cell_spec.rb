@@ -29,8 +29,8 @@ describe Cell do
       cell = Cell.new("B4")
       cell.place_ship(cruiser)
       expect(cell.empty?).to be(false)
-      #expect(cell.fired_upon?).to be(false)
-      #expect(cell.fire_upon).to be(true)
+      expect(cell.fired_upon?).to be(false)
+      expect(cell.fire_upon).to be(true)
       #expect(cell.ship.health).to eq(2)
       #expect(cell.fired_upon?).to be(true)
       end
