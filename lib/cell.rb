@@ -60,12 +60,20 @@ class Cell
   end
 
   def fire_upon
-  @ship == true
+  if !empty?
+    #@ship == true
     @ship.hit
+  end
   @fired_upon = true
   end
 
-  # def render
-  #   #used to render the board.
-  # end
+  def render
+    if @ship == nil
+      if @fired_upon
+        "M"
+      else
+        "."
+      end
+    end
+  end
 end
