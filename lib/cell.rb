@@ -5,6 +5,7 @@ class Cell
   def initialize(place)
     @place = place
     @ship = nil
+    @fired_upon = false
   end
 
 
@@ -51,17 +52,16 @@ class Cell
       @ship = ship
   end
 
-  # def fire_upon
-  #   #input of cell location
-  # end
+  def fired_upon?
+     # if @ship && !@fired_upon
+    @ship.hit == true
 
-  # def fire_upon?
-  #
-  # end
+  end
 
-  # def ship.health
-  #   #length - fire_upon values
-  # end
+  def fire_upon
+    @ship.hit
+    @fired_upon == true
+  end
 
   # def render
   #   #used to render the board.
