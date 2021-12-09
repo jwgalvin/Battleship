@@ -30,11 +30,19 @@ describe Cell do
       cell.place_ship(cruiser)
       expect(cell.empty?).to be(false)
       expect(cell.fired_upon?).to be(false)
-      expect(cell.fire_upon).to be(true)
-      #expect(cell.ship.health).to eq(2)
-      #expect(cell.fired_upon?).to be(true)
+      expect(cell.ship.health).to eq(2)
       end
 
+      it "fire_upon test block" do
+        cruiser = Ship.new("Cruiser", 3)
+        cell = Cell.new("B4")
+        cell.place_ship(cruiser)
+        cell.fire_upon
 
-  end
+
+        expect(cell.ship.health).to eq(2)
+        #binding.pry
+        #expect(cell.fired_upon?).to be(true)
+      end
+    end
 end
