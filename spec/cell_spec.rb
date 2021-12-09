@@ -65,6 +65,7 @@ describe Cell do
       cruiser.hit
       cruiser.hit
       expect(cruiser.sunk?).to be(true)
+      #binding.pry
       expect(cell_2.render).to eq("X")
     end
   end
