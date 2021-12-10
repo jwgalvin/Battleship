@@ -18,7 +18,7 @@ describe Board do
 
     it "can list the cells in the board" do
 
-      expect(board.cells).to eq(board)
+      expect(board.cells).to be_instance_of(Hash)
     end
   end
 
