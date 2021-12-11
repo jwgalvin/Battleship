@@ -18,44 +18,63 @@ attr_reader :rows, :columns, :cells
       end
 
     def valid_location?(ship, coords)
-      @cells[coords].ship == nil
+      #should confirm there are not any other ships in the cell prior to placing
+      coords.all?  do |cell|
+        @cells[cell].ship == nil
+      end
     end
 
 
-    def check_alignment_order(ship, coords)
-      letters = coords.map{|coordinate| coordinate[0]}
-      numbers = coords.map{|coordinate| coordinate[1]}
-      column_range = Range.new(letters.sort.first, letters.sort.last).count
-      row_range = Range.new(numbers.sort.first, numbers.sort.last).count
-      if letters.uniq.count == 1 && row_range == ship.length
-        true
-      elsif numbers.uniq.count == 1 && column_range == ship.length
-        true
-      else
-        false
+    def check_alignment_char(coords)
+      # This should check the check that the ships placed in the same column
+      letter = []
+      number = []
+      coords.each do |coord|
+        letter << coord[0] && number << coord[1].to_i
       end
-
+        letter.each_cons(2).all? do |letter_1, letter_2|
+        letter_2.ord - letter_1.ord == 1 && number.uniq.count == 1
+      end
     end
 
-    def placed_in_order(ship, coords)
-      first_position = coords.all? do |letter| letter == coords[0]
+    def check_alignment_num(coords)
+      # This should check the check that the ships placement are either same row
+      letter = []
+      number = []
+      coords.each do |coord|
+        letter << coord[0] && number << coord[1].to_i
       end
-      last_position = coords.last.ord == (coords.first.ord + ship.length - 1)
-      if first_position && last_position
-        true
-      else
-        false
+        number.each_cons(2).all? do |number_1, number_2|
+        number_2 - number_1 == 1 && letter.uniq.count == 1
       end
-
     end
+
+
+
+
+    # def placed_in_order(ship, coords)
+    #   # this should be confirming the ship are only placed in consecutive order. I don't know how to get each_cons to work for it.
+    #   first_position = coords.all? do |letter| letter == coords[0]
+    #   end
+    #   last_position = coords.last.ord == (coords.first.ord + ship.length - 1)
+    #   if first_position && last_position
+    #     true
+    #   else
+    #     false
+    #   end
+    # end
+
 
     def right_size(ship, coords)
-      ship.length == coords.count
+      #this compares the ship length to the size of the array of placement.
+      ship.length != coords.count
     end
 
     def valid_placement?(ship, coords)
-      if coords.all? {|coord| valid_location?(ship, coord)}
-         right_size(ship,coords) && check_alignment_order(ship,coords) && placed_in_order(ship, coords)
+      return false if right_size(ship, coords)
+
+      if check_alignment_num(coords) || check_alignment_char(coords)
+        true
       else
         false
 
