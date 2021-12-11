@@ -85,6 +85,19 @@ attr_reader :rows, :columns, :cells
       end
     end
 
-  end
+    def render(board)
+      #@cells.each do |render|
+      #end
+      #  if fired_upon = false
+      ##  elsif @cell.ship = false
+        #else
+      return "  1 2 3 4 \nA #{@cells["A1"].render(board)} #{@cells["A2"].render(board)} #{@cells["A3"].render(board)} #{@cells["A4"].render(board)} \nB #{@cells["B1"].render(board)} #{@cells["B2"].render(board)} #{@cells["B3"].render(board)} #{@cells["B4"].render(board)} \nC #{@cells["C1"].render(board)} #{@cells["C2"].render(board)} #{@cells["C3"].render(board)} #{@cells["C4"].render(board)} \nD #{@cells["D1"].render(board)} #{@cells["D2"].render(board)} #{@cells["D3"].render(board)} #{@cells["D4"].render(board)} \n"
 
+
+
+      #{@cells["B2"].render}"
+      # p "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
+      #p "A1".ord
+    end
+  end
 end
