@@ -85,7 +85,7 @@ attr_reader :rows, :columns, :cells
       end
     end
 
-    def render(board)
+    def render(board = false)
       #@cells.each do |render|
       #end
       #  if fired_upon = false
