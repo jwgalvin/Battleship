@@ -16,25 +16,33 @@ attr_reader :rows, :columns, :cells
         end
 
       end
-      
-      # hash.new{|h,k,v|} h[k] = 0
-        # board.new{|rows, columns|} rows[columns] = 0
-        # def cells
-        #   board.each do |board|
-        #     @cells <<
-        #   rows = Range.new(1, @rows)
-        #   columns = Range.new("A", @columns)
-        # end
 
-    def valid_location?(ship, coords)
-      #should confirm there are not any other ships in the cell prior to placing
-      coords.all?  do |cell|
-        @cells[cell].ship == nil
+    def place(ship, coords)
+      if valid_placement?(ship, coords) == true
+        coords.each do |cell|
+          check_coord_match = @cells.find_all do |location|
+            location[1].coordinate == cell
+          end
+          check_coord_match.each do |place_cell|
+            place_cell[1].place_ship(ship)
+          end
+        end
       end
     end
 
-    def good_location?(ship, coords)
-      @cells[coords].ship == nil
+    def valid_location?(ship, coords)
+      #should confirm there are not any other ships in the cell prior to placing
+      @cells.has_key?(coords)
+      # coords.all?  do |cell|
+      #   @cells[cell].ship == nil
+      # end
+    end
+
+    def is_occupied?(ship, coords)
+      #This should make sure that there is no other ship in the cells passed through
+      coords.any? do |coords|
+        @cells[coords].ship != nil
+      end
     end
 
     def check_alignment_char(coords)
@@ -69,14 +77,12 @@ attr_reader :rows, :columns, :cells
     def valid_placement?(ship, coords)
       #this method will be an aggregate method that calls on other methods to confirm valid placement.
       return false if right_size(ship, coords)
-
+      return false if is_occupied?(ship, coords)
       if check_alignment_num(coords) || check_alignment_char(coords)
         true
       else
         false
-
       end
-
     end
 
   end

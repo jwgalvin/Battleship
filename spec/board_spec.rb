@@ -37,18 +37,20 @@ describe Board do
       expect(board.valid_placement?(cruiser, ["A1", "A2"])).to be(false)
       expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to be(false)
       expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to be(false)
-    #   expect(board.valid_placement?(submarine, ["A1", "C1"])).to be(false)
-    #   expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to be(false)
-    #   expect(board.valid_placement?(submarine, ["C1", "B1"])).to be(false)
+      expect(board.valid_placement?(submarine, ["A1", "C1"])).to be(false)
+      expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to be(false)
+      expect(board.valid_placement?(submarine, ["C1", "B1"])).to be(false)
     end
+  end
 
-    xit "is not place diagonally" do
+  describe "iteration_2 validating placement p2" do
+    it "is not place diagonally" do
 
       expect(board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to be(false)
       expect(board.valid_placement?(submarine, ["C2", "D3"])).to be(false)
     end
 
-    xit "is placed correctly" do
+    it "is placed correctly" do
 
       expect(board.valid_placement?(submarine, ["A1", "A2"])).to be(true)
       expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to be(true)
@@ -56,22 +58,27 @@ describe Board do
   end
 
   describe "Iteration 2 Tools for Validation" do
-    xit "places ships correctly" do
-      board.place(cruiser, ["A1", "A2", "A3"])
+    it "places ships correctly" do
 
-      expect(cell_1).to be_a(Cell)
-      expect(cell_2).to be_a(Cell)
-      expect(cell_3).to be_a(Cell)
-      expect(cell_1.ship).to be_a(Ship)
-      expect(cell_2.ship).to be_a(Ship)
-      expect(cell_3.ship).to be_a(Ship)
+      board.place(cruiser, ["A1", "A2", "A3"])
+      cell_1 = board.cells["A1"]
+      cell_2 = board.cells["A2"]
+      cell_3 = board.cells["A3"]
+#binding.pry
+      # expect(cell_1).to be_a(Cell)
+      # expect(cell_2).to be_a(Cell)
+      # expect(cell_3).to be_a(Cell)
+      expect(cell_1.ship).to eq(cruiser)
+      expect(cell_2.ship).to eq(cruiser)
+      expect(cell_3.ship).to eq(cruiser)
       expect(cell_3.ship == cell_2.ship).to be(true)
     end
 
-    xit "checks for overlapping ships" do
+    it "checks for overlapping ships" do
       board.place(cruiser, ["A1", "A2", "A3"])
 
       expect(board.valid_placement?(submarine, ["A1", "B1"])).to be(false)
+    #  expect(board.render).to eq "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
     end
    end
 
