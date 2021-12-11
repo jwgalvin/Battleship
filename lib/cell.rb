@@ -2,60 +2,39 @@ class Cell
   attr_reader :ship,
               :coordinate
 
-  def initialize(place)
-    @place = place
+  def initialize(coordinate)
+    @coordinate = coordinate
     @ship = nil
     @fired_upon = false
     @render_me = "."
   end
 
-
-  # def ocean
-  #   @ocean = Hash.new
-  #   ('A'..'D').each do |letter|
-  #     (1..4).each do |i|
-  #       @ocean["#{letter}#{i}"]
-  #     end
-  #   end
-  # end
-
-  def coordinate
-    accumulator = []
-    accumulator = @place.split("")
-    row = accumulator[0]
-    column = accumulator[1]
-    @place
-  end
-
-  def ship
-    @ship
-  end
-
   def empty?
+    # checks the value of the cell regarding if a ship has been placed
     @ship == nil
-
   end
 
-#---------------------- Expect rspec loop 1
   def place_ship(ship)
-
+    #places the ship into the cell
       @ship = ship
   end
 
   def fired_upon?
-
+    # checks if the cell has been fired_upon
     @fired_upon
   end
 
   def fire_upon
+    #changes the cells value to reflect fired upon, has an effect on ship health.
   if !empty?
-    #@ship == true
+
     @ship.hit
   end
   @fired_upon = true
   end
 
   def render(reveal = false)
+    # This will keep ship hidden unlse reveal is flipped to true.  Once fired_upon it will render a character indicated below.
     if !fired_upon? && reveal == true && !empty?
       "S"
     elsif fired_upon? == false

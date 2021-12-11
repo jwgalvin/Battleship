@@ -20,7 +20,6 @@ describe Cell do
       cell = Cell.new("B4")
       cell.place_ship(cruiser)
       expect(cruiser.class).to be(Ship)
-      ##  no return in TTD expect(cell.place_ship(cruiser)).to be(true)
       expect(cell.ship).to eq(cruiser)
       expect(cell.empty?).to be(false)
       expect(cell.ship.health).to eq(3)
@@ -61,6 +60,7 @@ describe Cell do
       expect(cell_2.render).to eq(".")
       expect(cell_2.render).to eq(".")
       cell_2.render(true)
+      expect(cell_2.render(true)).to eq("S")
       cell_2.fire_upon
       expect(cell_2.render).to eq("H")
       expect(cruiser.sunk?).to be(false)

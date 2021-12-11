@@ -18,6 +18,7 @@ attr_reader :rows, :columns, :cells
       end
 
     def place(ship, coords)
+      # This method places the ship in the cells passed through the parameters
       if valid_placement?(ship, coords) == true
         coords.each do |cell|
           check_coord_match = @cells.find_all do |location|
@@ -31,22 +32,19 @@ attr_reader :rows, :columns, :cells
     end
 
     def valid_location?(ship, coords)
-      #should confirm there are not any other ships in the cell prior to placing
+      #This method confirms there are not any other ships in the cell prior to placing
       @cells.has_key?(coords)
-      # coords.all?  do |cell|
-      #   @cells[cell].ship == nil
-      # end
     end
 
     def is_occupied?(ship, coords)
-      #This should make sure that there is no other ship in the cells passed through
+      #This makes sure that there is no other ship in the cells passed through
       coords.any? do |coords|
         @cells[coords].ship != nil
       end
     end
 
     def check_alignment_char(coords)
-      # This should check the check that the ships placed in the same column
+      # This checks that the ships placed in the same column
       letter = []
       number = []
       coords.each do |coord|
@@ -58,7 +56,7 @@ attr_reader :rows, :columns, :cells
     end
 
     def check_alignment_num(coords)
-      # This should check the check that the ships placement are either same row
+      # This checks that the ships placement are either same row
       letter = []
       number = []
       coords.each do |coord|
@@ -70,12 +68,12 @@ attr_reader :rows, :columns, :cells
     end
 
     def right_size(ship, coords)
-      #this compares the ship length to the size of the array of placement.
+      # This compares the ship length to the size of the array of placement.
       ship.length != coords.count
     end
 
     def valid_placement?(ship, coords)
-      #this method will be an aggregate method that calls on other methods to confirm valid placement.
+      # This method will be an aggregate method that calls on other methods to confirm valid placement.
       return false if right_size(ship, coords)
       return false if is_occupied?(ship, coords)
       if check_alignment_num(coords) || check_alignment_char(coords)
@@ -86,18 +84,8 @@ attr_reader :rows, :columns, :cells
     end
 
     def render(board = false)
-      #@cells.each do |render|
-      #end
-      #  if fired_upon = false
-      ##  elsif @cell.ship = false
-        #else
+      # This method renders the board.  Initially the ships are hidden until the individual cells are fired upon or reveal is called.
       return "  1 2 3 4 \nA #{@cells["A1"].render(board)} #{@cells["A2"].render(board)} #{@cells["A3"].render(board)} #{@cells["A4"].render(board)} \nB #{@cells["B1"].render(board)} #{@cells["B2"].render(board)} #{@cells["B3"].render(board)} #{@cells["B4"].render(board)} \nC #{@cells["C1"].render(board)} #{@cells["C2"].render(board)} #{@cells["C3"].render(board)} #{@cells["C4"].render(board)} \nD #{@cells["D1"].render(board)} #{@cells["D2"].render(board)} #{@cells["D3"].render(board)} #{@cells["D4"].render(board)} \n"
-
-
-
-      #{@cells["B2"].render}"
-      # p "  1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . . \n"
-      #p "A1".ord
     end
   end
 end
