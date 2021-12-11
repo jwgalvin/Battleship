@@ -16,6 +16,15 @@ attr_reader :rows, :columns, :cells
         end
 
       end
+      
+      # hash.new{|h,k,v|} h[k] = 0
+        # board.new{|rows, columns|} rows[columns] = 0
+        # def cells
+        #   board.each do |board|
+        #     @cells <<
+        #   rows = Range.new(1, @rows)
+        #   columns = Range.new("A", @columns)
+        # end
 
     def valid_location?(ship, coords)
       #should confirm there are not any other ships in the cell prior to placing
@@ -24,6 +33,9 @@ attr_reader :rows, :columns, :cells
       end
     end
 
+    def good_location?(ship, coords)
+      @cells[coords].ship == nil
+    end
 
     def check_alignment_char(coords)
       # This should check the check that the ships placed in the same column
@@ -49,28 +61,13 @@ attr_reader :rows, :columns, :cells
       end
     end
 
-
-
-
-    # def placed_in_order(ship, coords)
-    #   # this should be confirming the ship are only placed in consecutive order. I don't know how to get each_cons to work for it.
-    #   first_position = coords.all? do |letter| letter == coords[0]
-    #   end
-    #   last_position = coords.last.ord == (coords.first.ord + ship.length - 1)
-    #   if first_position && last_position
-    #     true
-    #   else
-    #     false
-    #   end
-    # end
-
-
     def right_size(ship, coords)
       #this compares the ship length to the size of the array of placement.
       ship.length != coords.count
     end
 
     def valid_placement?(ship, coords)
+      #this method will be an aggregate method that calls on other methods to confirm valid placement.
       return false if right_size(ship, coords)
 
       if check_alignment_num(coords) || check_alignment_char(coords)
