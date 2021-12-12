@@ -6,14 +6,14 @@ class Ship
     @length = length
     @health = length
   end
-  # def health
-  #   @health
-  # end
+
   def sunk?
+    # This method checks to see if the ship is sunk
     @health == 0
   end
 
   def hit
+    # this decrements the health of the ship after being called
     @health -= 1
   end
 

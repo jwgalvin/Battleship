@@ -2,88 +2,49 @@ class Cell
   attr_reader :ship,
               :coordinate
 
-  def initialize(place)
-    @place = place
+  def initialize(coordinate)
+    @coordinate = coordinate
     @ship = nil
     @fired_upon = false
     @render_me = "."
   end
 
-
-  # def ocean
-  #   @ocean = Hash.new
-  #   ('A'..'D').each do |letter|
-  #     (1..4).each do |i|
-  #       @ocean["#{letter}#{i}"]
-  #     end
-  #   end
-  # end
-
-  def coordinate
-    accumulator = []
-    accumulator = @place.split("")
-    row = accumulator[0]
-    column = accumulator[1]
-    #letters are row, numbers are columns
-    #method will split the name up into row/column.
-    #hash.new{|h,k,v| h[k] =0}
-    @place
-  end
-
-  def ship
-    @ship
-  end
-
   def empty?
+    # checks the value of the cell regarding if a ship has been placed
     @ship == nil
-    # if ship == nil
-    #   true
-    # else
-    #   false
-    # end
   end
 
-#---------------------- Expect rspec loop 1
   def place_ship(ship)
-    #hash of cells
+    #places the ship into the cell
       @ship = ship
   end
 
   def fired_upon?
-     # if @ship && !@fired_upon
-    # @ship.hit == true
+    # checks if the cell has been fired_upon
     @fired_upon
   end
 
   def fire_upon
+    #changes the cells value to reflect fired upon, has an effect on ship health.
   if !empty?
-    #@ship == true
+
     @ship.hit
   end
   @fired_upon = true
   end
 
-  def render
-    if @ship == nil
-      if @fired_upon
-        @render_me = "M"
-      else
-        @render_me
-      end
-    else
-      #there is a ship
-      if @fired_upon
-        @render_me = "H"
-      end
-      @render_me
+  def render(reveal = false)
+    # This will keep ship hidden unlse reveal is flipped to true.  Once fired_upon it will render a character indicated below.
+    if !fired_upon? && reveal == true && !empty?
+      "S"
+    elsif fired_upon? == false
+      "."
+    elsif fired_upon? && empty?
+      "M"
+    elsif fired_upon? && ship.sunk? == false && empty? == false
+      "H"
+    else @ship.sunk?
+      "X"
     end
-
-    if @ship 
-      if @ship.sunk?
-        @render_me = "X"
-      end
-      #@render_me
-    end
-    @render_me
   end
 end
