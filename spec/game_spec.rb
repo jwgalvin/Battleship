@@ -13,12 +13,12 @@ describe Game do
 # binding.pry
       expect(game).to be_a(Game)
       expect(game.start).to eq("Welcome to BATTLESHIP \n Enter p to play. Enter q to quit.")
-
+#binding.pry
     end
 
-    xit 'will take user input' do
+    it 'will take user input' do
 
-      expect(user_input).to be("p")
+      expect(user_input).to be(gets.chomp)
     end
   end
 end
