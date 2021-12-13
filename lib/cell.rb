@@ -6,7 +6,6 @@ class Cell
     @coordinate = coordinate
     @ship = nil
     @fired_upon = false
-    @render_me = "."
   end
 
   def empty?
