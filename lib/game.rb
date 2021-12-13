@@ -59,15 +59,25 @@ class Game
     end
 
   def turn
-    until @player_board.each_pair.ship.sunk? || @computer_board.each_pair.ship.sunk?  do
-    puts "=====Round #{@round}"
+    until @player_lose || @computer_lose do
+    puts "=====Round===== #{@round}"
     puts "=====Player Board=====\n#{@player_board.render(true)}"
     puts "=====Computer Board=====\n#{@computer_board.render(false)}"
     puts "Choose what coordinate to fire upon!"
     target = gets.chomp.upcase!
     @computer_board.fire_upon(target)
+    puts "And now for skynet to fire..."
     ctarget = "#{skynet}"
     @player_board.fire_upon(ctarget)
+    @player_lose = @player_board.cells.values("X") == 5
+    @computer_lose = @computer_board.cells.values("X") == 5
+      #p "Game Over. You Lose."
+      #main_menu
+    #elsif @computer_board.cells.values("X") == 5
+      #p "Congratulations, You Win!"
+      #main_menu
+    #else
+    #end
     @round +=1
 
       # until method should be used here until both ships are sunk for either player
