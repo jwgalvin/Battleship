@@ -28,13 +28,10 @@ describe Game do
       #expect(game.begin_game)
     end
 
-    #it 'will decline invalid user input' do
-      #@user_input = "j"
+    it 'will take valid user input' do
+    # test for player placement valid and computer placement valid.
 
-      #expect(@user_input).to eq("Invalid")
-    #end ---- Dont test user_input, it is not a great thing to test for. make sure your input works correctly then move on.
-
-    # test for player placement valid and computer placement valid. pve same thing?
-    
+     expect(player_board.render(true)).to
+    end
   end
 end
