@@ -12,6 +12,7 @@ describe Game do
 
   describe 'iteration_3 game spec' do
     it 'Will welcome the new  player' do
+
       expect(game).to be_a(Game)
       expect(game.main_menu).to eq("Welcome to BATTLESHIP \n Enter p to play. Enter q to quit.")
     end
@@ -31,6 +32,9 @@ describe Game do
       #@user_input = "j"
 
       #expect(@user_input).to eq("Invalid")
-    #end
+    #end ---- Dont test user_input, it is not a great thing to test for. make sure your input works correctly then move on.
+
+    # test for player placement valid and computer placement valid. pve same thing?
+    
   end
 end
