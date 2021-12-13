@@ -3,11 +3,12 @@ require './lib/cell.rb'
 require './lib/ship.rb'
 
 class Game
-  attr_reader :player_board, :computer_board
+  attr_reader :player_board, :computer_board, :round
 
   def initialize
     @player_board = Board.new
     @computer_board = Board.new
+    @round = 1
   end
 
   def main_menu
@@ -32,6 +33,7 @@ class Game
     def begin_game
       system "clear"
       directions = "You will have 2 vessels to your Fleet. \nCruiser is 3 squares. \nSubmarine is 2 squares. \nThe Game board itself is a square. Its default size is 4 x 4. \nEach turn will consist  of you, then skynet, choosing a location to fire upon.  The game will continue until you or skynet is doomed to the bottom of the digital sea. Ships must be placed in a straight line! Place your Navy wisely!!! For all Mankind!"
+      computer_place
 
       ship_1 = Ship.new("Cruiser", 3)
       ship_2 = Ship.new("Submarine", 2)
@@ -50,18 +52,55 @@ class Game
       system "clear"
       #puts "#{turn_count}"
       puts "=====Player Board=====\n#{@player_board.render(true)}"
-      puts "=====Computer Board=====\n#{@computer_board.render(false)}"
-
+      puts "=====Computer Board=====\n#{@computer_board.render(true)}"
       #binding.pry
+      turn
+      # binding.pry
     end
 
-    #def turn
-      # this will dictate when the game ends as well
+  def turn
+    until @player_board.each_pair.ship.sunk? || @computer_board.each_pair.ship.sunk?  do
+    puts "=====Round #{@round}"
+    puts "=====Player Board=====\n#{@player_board.render(true)}"
+    puts "=====Computer Board=====\n#{@computer_board.render(false)}"
+    puts "Choose what coordinate to fire upon!"
+    target = gets.chomp.upcase!
+    @computer_board.fire_upon(target)
+    ctarget = "#{skynet}"
+    @player_board.fire_upon(ctarget)
+    @round +=1
+
       # until method should be used here until both ships are sunk for either player
       # computer placement will choose from ~8 choices, when a random choice is decided, a specific setup will be engaged.
       # computer shot will check to see if it has hit anything prior? selects from 8 different patterns of choice.
       # computer.choice(1..8) random do ==> 4 C1 C2 C3 C4 D1 D2
-      #
-    #end
+  end
+  end
+
+  def computer_place
+    cship_1 = Ship.new("Ship1", 2)
+    cship_2 = Ship.new("Ship name", 3)
+    loop do
+      @coordinates = []
+      until @coordinates.length == cship_2.length do
+        @coordinates << @computer_board.cells.keys.sample
+      end
+      if @computer_board.valid_placement?(cship_2, @coordinates)
+        @computer_board.place(cship_2, @coordinates)
+        break
+      end
+    end
+    loop do
+      @coordinates = []
+      until @coordinates.length == cship_1.length do
+        @coordinates << @computer_board.cells.keys.sample
+      end
+      if @computer_board.valid_placement?(cship_1, @coordinates)
+        @computer_board.place(cship_1, @coordinates)
+        break
+      end
+    end
+    # coords = @computer_board[@cells.to_a.sample(3)]
+  end
     # binding.pry
 end
