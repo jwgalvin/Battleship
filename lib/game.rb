@@ -5,35 +5,42 @@ require './lib/ship.rb'
 class Game
   # attr_reader :begin_game
 
-  #def initialize
-    #@player_board = player_board
-    #@computer_board = computer_board
-  #end
+  def initialize
+    @boards = []
+    @player_board = Board.new
+    @computer_board = Board.new
+  end
   def begin_game
-    directions = "You will have 2 vessels to your Fleet. \nCruiser is 3 squares. \nSubmarine is 2 squares"
-    boards = []
+    directions = "You will have 2 vessels to your Fleet. \nCruiser is 3 squares. \nSubmarine is 2 squares. \n The Game board itself is a square. Its default size is 4 x 4. \n Each turn will consist you, then skynet, choosing a location to fire upon.  The game will continue until you or skynet is doomed to the bottom of the digital sea. Ships must be placed in a straight line! Place your Navy wisely!!! For all Mankind!"
+    @boards = []
     boards << player_board = Board.new
     boards << computer_board = Board.new
+    puts "#{boards[0].render}"
+    puts "Place your cruiser on the Board now, it will need 3 coordinates that are in a straight line. Please choose them one at a time."
+    cruiser << get.chomp.upcase!
+    for cruiser.each  do |placement|
+      @boards[0].place(cruiser, )
     #let(:player_board) {Board.new}#(user_input, user_input)
     #let(:computer_board) {Board.new}
   end
 
   def main_menu
-    # This is how we begin a game
+    # This is how we begin a game, can we clear the screen first?
     puts "Welcome to BATTLESHIP \n Enter p to play. Enter q to quit."
-    return "Welcome to BATTLESHIP \n Enter p to play. Enter q to quit."
-    @user_input = gets.chomp
+    user_input = gets.chomp.downcase
 
-      if @user_input == "p" #this is our main branch and idea where the game will be rendered and started.
-        p "Welcome to the Navy"
-        begin_game
-      elsif user_input == "q"
-        p "Quit"
-        exit
-      # maybe later include a way to go back to main menu
-      else user_input != "p" || "q"
-        p "Invalid"
-        "invalid"
+    until ["p", "q".include?](user_input)
+        p "Invalid, try again."
+        user_input = gets.chomp.downcase
+    end
+      if user_input == "p" #this is our main branch and idea where the game will be rendered and started.
+      p "Welcome to the Navy"
+      begin_game
+      else user_input == "q"
+          p "Quit"
+          # exit ??? can we clear the screen like we can with terminal
+        # maybe later include a way to go back to main menu
+
       end
 
     def turn
