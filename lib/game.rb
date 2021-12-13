@@ -3,34 +3,39 @@ require './lib/cell.rb'
 require './lib/ship.rb'
 
 class Game
-  #attr_reader :navy_placement
-  #def initialize(new_game)
-  #  @new_game = new_game
-  #end
+  # attr_reader :begin_game
 
-  def main_menu
-    puts "Welcome to BATTLESHIP \n Enter p to play. Enter q to quit."
-    return "Welcome to BATTLESHIP \n Enter p to play. Enter q to quit."
-    user_input
+  #def initialize
+    #@player_board = player_board
+    #@computer_board = computer_board
+  #end
+  def begin_game
+    directions = "You will have 2 vessels to your Fleet. \nCruiser is 3 squares. \nSubmarine is 2 squares"
+    boards = []
+    boards << player_board = Board.new
+    boards << computer_board = Board.new
+    #let(:player_board) {Board.new}#(user_input, user_input)
+    #let(:computer_board) {Board.new}
   end
 
-  def setup
-    user_input = gets.chomp
+  def main_menu
+    # This is how we begin a game
+    puts "Welcome to BATTLESHIP \n Enter p to play. Enter q to quit."
+    return "Welcome to BATTLESHIP \n Enter p to play. Enter q to quit."
+    @user_input = gets.chomp
 
-    if user_input == "p" #this is our main branch and idea where the game will be rendered and started.
-      p "Welcome to the Navy"
-      new
-    elsif user_input == "q"
-      p "Quit"
-    else
-      p "Invalid"
-    end
+      if @user_input == "p" #this is our main branch and idea where the game will be rendered and started.
+        p "Welcome to the Navy"
+        begin_game
+      elsif user_input == "q"
+        p "Quit"
+        exit
+      # maybe later include a way to go back to main menu
+      else user_input != "p" || "q"
+        p "Invalid"
+        "invalid"
+      end
 
-    def begin_game
-      prints "You will have 2 vessels to your Fleet. A CruiserklLorem ipsum oloseontg. Put the instructions to the game here"
-      board = Board.new(4, 4)#(user_input, user_input)
-
-    end
     def turn
       # this will dictate when the game ends as well
       # until method should be used here until both ships are sunk for either player
