@@ -42,6 +42,11 @@ class Game
       puts "Place your Cruiser on the Board now, it will need 3 coordinates that are in a straight line."
       ship_coords = gets.chomp.tr(",", " ").upcase!
       ship_coords = ship_coords.split(" ")
+      if ship_coords == false
+        puts "invalid coordinates, try again."
+        ship_coords = gets.chomp.tr(",", " ").upcase!
+        ship_coords = ship_coords.split(" ")
+      end
       @player_board.place(ship_1, ship_coords)
       system "clear"
       puts "#{@player_board.render(true)}"
@@ -58,6 +63,11 @@ class Game
       # binding.pry
     end
 
+  # def losing_conditions
+  #   if
+  #   end
+  # end
+
   def turn
     until @player_lose || @computer_lose do
     puts "=====Round===== #{@round}"
@@ -65,14 +75,14 @@ class Game
     puts "=====Computer Board=====\n#{@computer_board.render(false)}"
     puts "Choose what coordinate to fire upon!"
     target = gets.chomp.upcase!
-    @computer_board.fire_upon(target)
+    @computer_board.cells[target].fire_upon#(target)
     puts "And now for skynet to fire..."
-    ctarget = "#{skynet}"
-    @player_board.fire_upon(ctarget)
-    @player_lose = @player_board.cells.values("X") == 5
+    ctarget = "#{@player_board.cells.keys.sample}"
+    @player_board.cells[ctarget].fire_upon
+    @player_lose = @player_board.cells[key].value("X") == 5
     @computer_lose = @computer_board.cells.values("X") == 5
       #p "Game Over. You Lose."
-      #main_menu
+      #main_menup
     #elsif @computer_board.cells.values("X") == 5
       #p "Congratulations, You Win!"
       #main_menu
