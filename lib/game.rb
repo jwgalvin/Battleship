@@ -9,6 +9,8 @@ class Game
     @player_board = Board.new
     @computer_board = Board.new
     @round = 1
+    @computer_targeting = @player_board
+    @human_targeting = @computer_board
   end
 
   def main_menu
@@ -22,7 +24,7 @@ class Game
         user_input = gets.chomp.downcase
     end
       if user_input == "p"
-      p "Welcome to the Navy"
+      p "Welcome to the the future war!"
       begin_game
       elsif user_input == "q"
           p "Quitter"
@@ -40,20 +42,30 @@ class Game
       puts directions
       puts "#{@player_board.render(true)}"
       puts "Place your Cruiser on the Board now, it will need 3 coordinates that are in a straight line."
-      ship_coords = gets.chomp.tr(",", " ").upcase!
-      ship_coords = ship_coords.split(" ")
-      if ship_coords == false
-        puts "invalid coordinates, try again."
+      loop do
         ship_coords = gets.chomp.tr(",", " ").upcase!
         ship_coords = ship_coords.split(" ")
+        if  @player_board.valid_placement?(@ship_1, ship_coords)
+            @player_board.place(@ship_1, ship_coords)
+            break
+        else
+            puts "invalid coordinates, try again."
+        end
       end
-      @player_board.place(@ship_1, ship_coords)
-      system "clear"
+
       puts "#{@player_board.render(true)}"
       puts "Place your Submarine on the Board now, it will need 2 coordinates that are in a straight line up or down."
-      ship_coords = gets.chomp.tr(",", " ").upcase!
-      ship_coords = ship_coords.split(" ")
-      @player_board.place(@ship_2, ship_coords)
+      loop do
+        ship_coords = gets.chomp.tr(",", " ").upcase!
+        ship_coords = ship_coords.split(" ")
+        if @player_board.valid_placement?(@ship_2, ship_coords)
+           @player_board.place(@ship_2, ship_coords)
+           break
+        else
+          puts "invalid coordinates, try again."
+        end
+      end
+
       system "clear"
       #puts "#{turn_count}"
       puts "=====Player Board=====\n#{@player_board.render(true)}"
@@ -62,9 +74,6 @@ class Game
       turn
       # binding.pry
     end
-
-  # @player_lose = true if ship_1.sunk? && ship_2.sunk?
-  # @computer_lose = true if cship_1.sunk? && cship_2.sunk?
 
 
   def turn
@@ -76,23 +85,56 @@ class Game
     target = gets.chomp.upcase!
     @computer_board.cells[target].fire_upon
     puts "And now for skynet to fire..."
-    ctarget = "#{@player_board.cells.keys.sample}"
+    ctarget =  "#{@player_board.cells.keys.sample}"
+    puts "skynet fires upon #{ctarget}!!!"
     @player_board.cells[ctarget].fire_upon
-    @player_lose = true if @ship_1.sunk? && @ship_2.sunk?
-    @computer_lose = true if @cship_1.sunk? && @cship_2.sunk?
-      #p "Game Over. You Lose."
-      #main_menup
-    #elsif @computer_board.cells.values("X") == 5
-      #p "Congratulations, You Win!"
-      #main_menu
-    #else
-    #end
+
     @round +=1
 
-      # until method should be used here until both ships are sunk for either player
-      # computer placement will choose from ~8 choices, when a random choice is decided, a specific setup will be engaged.
-      # computer shot will check to see if it has hit anything prior? selects from 8 different patterns of choice.
-      # computer.choice(1..8) random do ==> 4 C1 C2 C3 C4 D1 D2
+    if @ship_1.sunk? || @ship_2.sunk?
+      puts "You lost a ship, it was sunk!"
+    end
+
+    if @ship_1.sunk? && @ship_2.sunk?
+
+      @player_lose = true
+
+      puts "You lost this round. Play again?"
+      user_input = gets.chomp.downcase
+      until ["p", "q"].include?(user_input)
+        p "Invalid, try again."
+        user_input = gets.chomp.downcase
+      end
+
+
+        if user_input == "p"
+        p "Welcome to the the future war!"
+        begin_game
+        elsif user_input == "q"
+            p "Without the conners humanity was overrun."
+        else
+        end
+
+    elsif @cship_1.sunk? && @cship_2.sunk?
+      @computer_lose = true
+      puts "You are victorious! Now go replenish the human race! \nDo you wish to fight skynet once more?"
+      user_input = gets.chomp.downcase
+
+      until ["p", "q"].include?(user_input)
+          p "Invalid, try again."
+          user_input = gets.chomp.downcase
+      end
+        if user_input == "p"
+        p "Welcome to the the future war!"
+        begin_game
+        elsif user_input == "q"
+            p "what about the multiverse, other realities need conners!"
+        else
+        end
+
+    else
+      puts "No one is the victor yet!"
+    end
   end
   end
 
