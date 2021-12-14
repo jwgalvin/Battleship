@@ -1,6 +1,6 @@
 
 # Battleship
-
+![USS New Jersey](/pictures/Battleship.jpg)
 Welcome to our version of the Battleship project. We appreciate you taking the time to enjoy our game.
 People have said that our game is
 > Fun
@@ -59,7 +59,7 @@ battleship_runner.rb : runs the game
 README.md            : explains what is in the file
 
 ___Known Bugs/Errors___
-player is not notified when firing on a previously fired upon location 
+player is not notified when firing on a previously fired upon location
 ```
 
 We hope you enjoy our Game!
