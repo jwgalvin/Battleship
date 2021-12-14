@@ -67,12 +67,11 @@ class Game
       end
 
       system "clear"
-      #puts "#{turn_count}"
       puts "=====Player Board=====\n#{@player_board.render(true)}"
       puts "=====Computer Board=====\n#{@computer_board.render(true)}"
-      #binding.pry
+
       turn
-      # binding.pry
+
     end
 
 
@@ -83,11 +82,38 @@ class Game
     puts "=====Computer Board=====\n#{@computer_board.render(false)}"
     puts "Choose what coordinate to fire upon!"
     target = gets.chomp.upcase!
-    @computer_board.cells[target].fire_upon
+    if @computer_board.valid_location?(target) && @computer_board.cells[target].fired_upon? == false
+      puts "Fwooooooosh!!!"
+      @computer_board.cells[target].fire_upon
+      if @computer_board.cells[target].fired_upon? && @computer_board.cells[target].empty?
+        puts "LOUD SPLASHING NOISES!!!"
+      elsif @computer_board.cells[target].fired_upon? && @computer_board.cells[target].ship.sunk? == false
+        puts "Kaboom!"
+      elsif @computer_board.cells[target].ship.sunk?
+        puts "KaKRASHBOOOOM!!! Their craft explodes!"
+      end
+    elsif @computer_board.valid_location?(target) == false
+      puts "You can't fire there! Try Again!"
+      target = gets.chomp.upcase!
+      # @computer_board.cells[target].fire_upon
+    end
     puts "And now for skynet to fire..."
     ctarget =  "#{@player_board.cells.keys.sample}"
     puts "skynet fires upon #{ctarget}!!!"
-    @player_board.cells[ctarget].fire_upon
+    if @player_board.valid_location?(ctarget) && @player_board.cells[ctarget].fired_upon? == false
+      puts "Fwooooooosh!!! ie Missle NOISES! \n \n"
+      @player_board.cells[ctarget].fire_upon
+      if @player_board.cells[ctarget].fired_upon? && @player_board.cells[ctarget].empty?
+        puts "LOUD SPLASHING NOISES!!! \n \n"
+      elsif @player_board.cells[ctarget].fired_upon? && @player_board.cells[ctarget].ship.sunk? == false
+        puts "Kaboom! \n"
+      elsif @player_board.cells[target].ship.sunk?
+        puts "KaKRASHBOOOOM!!! Your craft explodes! \n \n"
+      end
+    elsif @computer_board.valid_location?(target) == false
+      # @computer_board.cells[target].fire_upon
+    end
+
 
     @round +=1
 
@@ -128,7 +154,7 @@ class Game
         p "Welcome to the the future war!"
         begin_game
         elsif user_input == "q"
-            p "what about the multiverse, other realities need conners!"
+            p "what about the multiverse???!! There other realities that need conners!"
         else
         end
 

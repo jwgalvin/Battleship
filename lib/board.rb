@@ -37,6 +37,7 @@ attr_reader :rows, :columns, :cells
     end
 
     def is_occupied?(ship, coords)
+      # @cells[coords].empty?
       #This makes sure that there is no other ship in the cells passed through
       coords.any? do |coords|
         @cells[coords].ship != nil

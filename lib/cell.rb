@@ -26,11 +26,11 @@ class Cell
   def fire_upon
     #changes the cells value to reflect fired upon, has an effect on ship health.
     if !empty?
-      puts "A Hit!!!! A palpable hit!"
+      puts "A Hit!!!! A palpable hit! \n"
       @ship.hit
 
     elsif empty?
-      puts "A miss!"
+      puts "A miss! \n"
     end
     @fired_upon = true
   end
