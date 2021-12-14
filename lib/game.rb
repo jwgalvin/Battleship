@@ -9,8 +9,8 @@ class Game
     @player_board = Board.new
     @computer_board = Board.new
     @round = 1
-    @computer_targeting = @player_board
-    @human_targeting = @computer_board
+    @computer_targeting = @player_board.cells.keys
+    @human_targeting = @computer_board.cells.keys
   end
 
   def main_menu
@@ -28,6 +28,7 @@ class Game
       begin_game
       elsif user_input == "q"
           p "Quitter"
+          system "quit"
       else
       end
   end
@@ -67,8 +68,6 @@ class Game
       end
 
       system "clear"
-      puts "=====Player Board=====\n#{@player_board.render(true)}"
-      puts "=====Computer Board=====\n#{@computer_board.render(true)}"
 
       turn
 
@@ -98,7 +97,8 @@ class Game
       # @computer_board.cells[target].fire_upon
     end
     puts "And now for skynet to fire..."
-    ctarget =  "#{@player_board.cells.keys.sample}"
+    ctarget =  "#{@computer_targeting.sample}"
+    @computer_targeting.delete(ctarget)
     puts "skynet fires upon #{ctarget}!!!"
     if @player_board.valid_location?(ctarget) && @player_board.cells[ctarget].fired_upon? == false
       puts "Fwooooooosh!!! ie Missle NOISES! \n \n"
@@ -106,38 +106,33 @@ class Game
       if @player_board.cells[ctarget].fired_upon? && @player_board.cells[ctarget].empty?
         puts "LOUD SPLASHING NOISES!!! \n \n"
       elsif @player_board.cells[ctarget].fired_upon? && @player_board.cells[ctarget].ship.sunk? == false
-        puts "Kaboom! \n"
+        puts "Kaboom! \n \n"
       elsif @player_board.cells[target].ship.sunk?
         puts "KaKRASHBOOOOM!!! Your craft explodes! \n \n"
       end
     elsif @computer_board.valid_location?(target) == false
       # @computer_board.cells[target].fire_upon
     end
-
-
     @round +=1
 
     if @ship_1.sunk? || @ship_2.sunk?
-      puts "You lost a ship, it was sunk!"
+      puts "You lost a Vessel! It's crew has been atomized!"
     end
 
     if @ship_1.sunk? && @ship_2.sunk?
-
       @player_lose = true
-
       puts "You lost this round. Play again?"
       user_input = gets.chomp.downcase
       until ["p", "q"].include?(user_input)
         p "Invalid, try again."
         user_input = gets.chomp.downcase
       end
-
-
         if user_input == "p"
-        p "Welcome to the the future war!"
+        p "Welcome back to the the future war!"
         begin_game
         elsif user_input == "q"
-            p "Without the conners humanity was overrun."
+            p "Without the Conners fighting for humanity was overrun!!"
+            system "quit"
         else
         end
 
@@ -145,7 +140,6 @@ class Game
       @computer_lose = true
       puts "You are victorious! Now go replenish the human race! \nDo you wish to fight skynet once more?"
       user_input = gets.chomp.downcase
-
       until ["p", "q"].include?(user_input)
           p "Invalid, try again."
           user_input = gets.chomp.downcase
@@ -158,10 +152,10 @@ class Game
         else
         end
 
-    else
-      puts "No one is the victor yet!"
+      else
+        puts "No one is the victor yet!"
+      end
     end
-  end
   end
 
   def computer_place
