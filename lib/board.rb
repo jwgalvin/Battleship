@@ -31,12 +31,13 @@ attr_reader :rows, :columns, :cells
       end
     end
 
-    def valid_location?(ship, coords)
+    def valid_location?(coords)
       #This method confirms there are not any other ships in the cell prior to placing
       @cells.has_key?(coords)
     end
 
     def is_occupied?(ship, coords)
+      # @cells[coords].empty?
       #This makes sure that there is no other ship in the cells passed through
       coords.any? do |coords|
         @cells[coords].ship != nil
@@ -76,6 +77,7 @@ attr_reader :rows, :columns, :cells
       # This method will be an aggregate method that calls on other methods to confirm valid placement.
       return false if right_size(ship, coords)
       return false if is_occupied?(ship, coords)
+
       if check_alignment_num(coords) || check_alignment_char(coords)
         true
       else
