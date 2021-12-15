@@ -73,31 +73,26 @@ class Game
 
     end
 
-
-  def turn
-    until @player_lose || @computer_lose do
-    puts "=====Round===== #{@round}"
-    puts "=====Player Board=====\n#{@player_board.render(true)}"
-    puts "=====Computer Board=====\n#{@computer_board.render(false)}"
-    puts "Choose what coordinate to fire upon!"
-    target = gets.chomp.upcase!
+  def player_shoots(target)
+    puts "You fire at #{target}! \n \n"
     if @computer_board.valid_location?(target) && @computer_board.cells[target].fired_upon? == false
-      puts "Fwooooooosh!!!"
+      puts "Fwooooooosh!!! \n \n"
       @computer_board.cells[target].fire_upon
       if @computer_board.cells[target].fired_upon? && @computer_board.cells[target].empty?
-        puts "LOUD SPLASHING NOISES!!!"
+        puts "LOUD SPLASHING NOISES!!!\n \n"
       elsif @computer_board.cells[target].fired_upon? && @computer_board.cells[target].ship.sunk? == false
-        puts "Kaboom!"
-      elsif @computer_board.cells[target].ship.sunk?
-        puts "KaKRASHBOOOOM!!! Their craft explodes!"
+        puts "Kaboom! \n \n"
+      elsif @cship_1.sunk? || @cship_2.sunk?
+        puts "KaKRASHBOOOOM!!! Their craft explodes!\n \n"
       end
     elsif @computer_board.valid_location?(target) == false
       puts "You can't fire there! Try Again!"
       target = gets.chomp.upcase!
-      # @computer_board.cells[target].fire_upon
+      player_shoots(target)
     end
-    puts "And now for skynet to fire..."
-    ctarget =  "#{@computer_targeting.sample}"
+  end
+
+  def computer_shoots(ctarget)
     @computer_targeting.delete(ctarget)
     puts "skynet fires upon #{ctarget}!!!"
     if @player_board.valid_location?(ctarget) && @player_board.cells[ctarget].fired_upon? == false
@@ -107,12 +102,25 @@ class Game
         puts "LOUD SPLASHING NOISES!!! \n \n"
       elsif @player_board.cells[ctarget].fired_upon? && @player_board.cells[ctarget].ship.sunk? == false
         puts "Kaboom! \n \n"
-      elsif @player_board.cells[target].ship.sunk?
-        puts "KaKRASHBOOOOM!!! Your craft explodes! \n \n"
+      elsif @ship_1.sunk? || @ship_2.sunk?
+        puts "KaKRASHBOOOOM!!! \n \n"
       end
     elsif @computer_board.valid_location?(target) == false
-      # @computer_board.cells[target].fire_upon
     end
+  end
+
+  def turn
+    until @player_lose || @computer_lose do
+    puts "=====Round===== #{@round}"
+    puts "=====Player Board=====\n#{@player_board.render(true)}"
+    puts "=====Computer Board=====\n#{@computer_board.render(false)}"
+    puts "Choose what coordinate to fire upon!"
+    target = gets.chomp.upcase!
+    player_shoots(target)
+
+    puts "And now for skynet to fire... \n \n"
+    ctarget =  "#{@computer_targeting.sample}"
+    computer_shoots(ctarget)
     @round +=1
 
     if @ship_1.sunk? || @ship_2.sunk?
@@ -129,9 +137,10 @@ class Game
       end
         if user_input == "p"
         p "Welcome back to the the future war!"
+        clear_board
         begin_game
         elsif user_input == "q"
-            p "Without the Conners fighting for humanity was overrun!!"
+            p "Without the Conners fighting for humanity the species was doomed!!"
             system "quit"
         else
         end
@@ -181,7 +190,5 @@ class Game
         break
       end
     end
-    # coords = @computer_board[@cells.to_a.sample(3)]
   end
-    # binding.pry
 end
