@@ -84,7 +84,7 @@ sleep(1)
           sleep(1)
         end
       end
-      system"clear"
+      system "clear"
       turn
     end
 
@@ -204,6 +204,7 @@ sleep(1)
       puts " "
       sleep(1)
       puts "You lost this round. Play again? (p/q)"
+      system "clear"
       user_input = gets.chomp.downcase
       until ["p", "q"].include?(user_input)
         p "Invalid, try again."
@@ -212,7 +213,8 @@ sleep(1)
         if user_input == "p"
         p "Welcome back to the the future war!"
         system "clear"
-        begin_game
+        initialize
+        main_menu
         elsif user_input == "q"
             p "Without the Conners fighting for humanity the species was doomed!!"
             system "quit"
@@ -253,7 +255,7 @@ sleep(1)
 #     #   # #   #       #    #
 #######    #    ####### #     # "
       puts " "
-      sleep(2)
+      sleep(1)
       puts "You are victorious! Now go replenish the human race! \n \nDo you wish to fight Skynet once more? (p/q)"
       user_input = gets.chomp.downcase
       until ["p", "q"].include?(user_input)
@@ -261,10 +263,10 @@ sleep(1)
           user_input = gets.chomp.downcase
       end
         if user_input == "p"
-        p "Welcome to the the future war!"
-        sleep(1)
-        system "clear"
-        begin_game
+          p "Welcome to the the future war!"
+          sleep(1)
+          initialize
+          main_menu
         elsif user_input == "q"
             p "what about the multiverse???!! There other realities that need you!"
             sleep(1)
