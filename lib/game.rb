@@ -16,6 +16,14 @@ class Game
   def main_menu
     # This is how we begin a game, can we clear the screen first?
     system "clear"
+    puts "######
+#     #   ##   ##### ##### #      ######  ####  #    # # #####
+#     #  #  #    #     #   #      #      #      #    # # #    #
+######  #    #   #     #   #      #####   ####  ###### # #    #
+#     # ######   #     #   #      #           # #    # # #####
+#     # #    #   #     #   #      #      #    # #    # # #
+######  #    #   #     #   ###### ######  ####  #    # # #      "
+    puts " "
     puts "Welcome to BATTLESHIP \nEnter p to play. Enter q to quit."
     user_input = gets.chomp.downcase
 
@@ -35,14 +43,14 @@ class Game
 
     def begin_game
       system "clear"
-      directions = "You will have 2 vessels to your Fleet. \nCruiser is 3 squares. \nSubmarine is 2 squares. \nThe Game board itself is a square. Its default size is 4 x 4. \nEach turn will consist  of you, then skynet, choosing a location to fire upon.  The game will continue until you or skynet is doomed to the bottom of the digital sea. Ships must be placed in a straight line! Place your Navy wisely!!! For all Mankind!"
+      directions = "You will have 2 vessels in your Fleet. \nA Cruiser is 3 squares. \nA Submarine is 2 squares. \nThe Game board is 4 x 4. \nEach turn will consist  of you, then skynet, choosing a location to fire upon.  \nThe game will continue until you or skynet is doomed to the bottom of the digital sea. \nShips must be placed in ascending order ie) a1 a2 a3 or a1 b1 c1. \nPlace your Fleet wisely!!! For all Mankind!"
       computer_place
 
       @ship_1 = Ship.new("Cruiser", 3)
       @ship_2 = Ship.new("Submarine", 2)
       puts directions
       puts "#{@player_board.render(true)}"
-      puts "Place your Cruiser on the Board now, it will need 3 coordinates that are in a straight line."
+      puts "Place your Cruiser now, it will need 3 coordinates that are left to right or top to bottom"
       loop do
         ship_coords = gets.chomp.tr(",", " ").upcase!
         ship_coords = ship_coords.split(" ")
@@ -55,7 +63,7 @@ class Game
       end
 
       puts "#{@player_board.render(true)}"
-      puts "Place your Submarine on the Board now, it will need 2 coordinates that are in a straight line up or down."
+      puts "Place your Submarine now, it will need 2 coordinates that are in left to right or top to bottom."
       loop do
         ship_coords = gets.chomp.tr(",", " ").upcase!
         ship_coords = ship_coords.split(" ")
@@ -66,11 +74,8 @@ class Game
           puts "invalid coordinates, try again."
         end
       end
-
-      system "clear"
-
+      system"clear"
       turn
-
     end
 
   def player_shoots(target)
@@ -94,7 +99,7 @@ class Game
 
   def computer_shoots(ctarget)
     @computer_targeting.delete(ctarget)
-    puts "skynet fires upon #{ctarget}!!!"
+    puts "Skynet fires upon #{ctarget}!!!"
     if @player_board.valid_location?(ctarget) && @player_board.cells[ctarget].fired_upon? == false
       puts "Fwooooooosh!!! ie Missle NOISES! \n \n"
       @player_board.cells[ctarget].fire_upon
@@ -111,14 +116,16 @@ class Game
 
   def turn
     until @player_lose || @computer_lose do
-    puts "=====Round===== #{@round}"
-    puts "=====Player Board=====\n#{@player_board.render(true)}"
-    puts "=====Computer Board=====\n#{@computer_board.render(false)}"
+    puts "===== Round#{@round} ====="
+    puts "===== Player Board =====\n#{@player_board.render(true)}"
+    puts " "
+    puts "===== Computer Board =====\n#{@computer_board.render(false)}"
+    puts " "
     puts "Choose what coordinate to fire upon!"
     target = gets.chomp.upcase!
     player_shoots(target)
 
-    puts "And now for skynet to fire... \n \n"
+    puts "And now for Skynet to fire... \n \n"
     ctarget =  "#{@computer_targeting.sample}"
     computer_shoots(ctarget)
     @round +=1
@@ -129,7 +136,39 @@ class Game
 
     if @ship_1.sunk? && @ship_2.sunk?
       @player_lose = true
-      puts "You lost this round. Play again?"
+      puts "#     # ####### #     #
+ #   #  #     # #     #
+  # #   #     # #     #
+   #    #     # #     #
+   #    #     # #     #
+   #    #     # #     #
+   #    #######  #####
+
+#       #######  #####  #######
+#       #     # #     # #
+#       #     # #       #
+#       #     #  #####  #####
+#       #     #       # #
+#       #     # #     # #
+####### #######  #####  ####### "
+      puts " "
+      puts " #####     #    #     # #######
+#     #   # #   ##   ## #
+#        #   #  # # # # #
+#  #### #     # #  #  # #####
+#     # ####### #     # #
+#     # #     # #     # #
+ #####  #     # #     # #######
+
+####### #     # ####### ######
+#     # #     # #       #     #
+#     # #     # #       #     #
+#     # #     # #####   ######
+#     #  #   #  #       #   #
+#     #   # #   #       #    #
+#######    #    ####### #     # "
+      puts " "
+      puts "You lost this round. Play again? (p/q)"
       user_input = gets.chomp.downcase
       until ["p", "q"].include?(user_input)
         p "Invalid, try again."
@@ -147,7 +186,39 @@ class Game
 
     elsif @cship_1.sunk? && @cship_2.sunk?
       @computer_lose = true
-      puts "You are victorious! Now go replenish the human race! \nDo you wish to fight skynet once more?"
+      puts "#     # ####### #     #
+ #   #  #     # #     #
+  # #   #     # #     #
+   #    #     # #     #
+   #    #     # #     #
+   #    #     # #     #
+   #    #######  #####
+
+#     # ### #     #
+#  #  #  #  ##    #
+#  #  #  #  # #   #
+#  #  #  #  #  #  #
+#  #  #  #  #   # #
+#  #  #  #  #    ##
+ ## ##  ### #     # "
+      puts " "
+      puts " #####     #    #     # #######
+#     #   # #   ##   ## #
+#        #   #  # # # # #
+#  #### #     # #  #  # #####
+#     # ####### #     # #
+#     # #     # #     # #
+ #####  #     # #     # #######
+
+####### #     # ####### ######
+#     # #     # #       #     #
+#     # #     # #       #     #
+#     # #     # #####   ######
+#     #  #   #  #       #   #
+#     #   # #   #       #    #
+#######    #    ####### #     # "
+      puts " "
+      puts "You are victorious! Now go replenish the human race! \nDo you wish to fight Skynet once more? (p/q)"
       user_input = gets.chomp.downcase
       until ["p", "q"].include?(user_input)
           p "Invalid, try again."

@@ -57,9 +57,10 @@ games_spec.rb : manages the tests for our games
 ___Additional Files___
 battleship_runner.rb : runs the game
 README.md            : explains what is in the file
+pictures             : holds the pictures used in the file
 
 ___Known Bugs/Errors___
-player is not notified when firing on a previously fired upon location
+player is not notified when firing on a previously fired upon location - still working on it
 ```
 
 We hope you enjoy our Game!
