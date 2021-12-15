@@ -28,8 +28,9 @@ class Cell
     if !empty?
       @ship.hit
     elsif empty?
-      puts "A miss! \n"
+      
     end
+    puts "We've reports of hit!!!"
     @fired_upon = true
   end
 
