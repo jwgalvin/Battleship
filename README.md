@@ -8,7 +8,7 @@ People have said that our game is
 
 In order to play the game, please clone our repo with
 
-```ruby git@github.com:jwgalvin/Battleship.git```
+```git@github.com:jwgalvin/Battleship.git```
 
 Once you have cloned the repo, enter the directory you saved the repo to and enter:
 
@@ -49,18 +49,33 @@ board.rb  : manages the rendering and valid location  on our board
 game.rb   : manages the functionality of the interactions within a game
 
 ___Spec Files___
+
 ship_spec.rb  : manages the tests for our ships
 cell_spec.rb  : manages the tests for our cells
 board_spec.rb : manages the tests for our boards
 games_spec.rb : manages the tests for our games
 
 ___Additional Files___
+
 battleship_runner.rb : runs the game
 README.md            : explains what is in the file
 pictures             : holds the pictures used in the file
 
 ___Known Bugs/Errors___
-player is not notified when firing on a previously fired upon location - still working on it
+
+no known bugs, feel free to reach out if you find one!
+email: lpluke5@gmail.comp
+please make the subject "Battleship Error Found"
+
+___Contributors___
+
+Joe Galvin
+github: jwgalvin
+
+Luke Pascale
+github: enalihai
+
+Additional contributors yet to come
 ```
 
 We hope you enjoy our Game!
