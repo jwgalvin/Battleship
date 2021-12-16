@@ -63,7 +63,7 @@ pictures             : holds the pictures used in the file
 
 ___Known Bugs/Errors___
 
-no known bugs, feel free to reach out if you find one!
+After submitting we noticed that we had an errant ! at the end of upcase. Our directions say to use lower case, but that was more serendipty.  Currently, place a coord with a capitilized letter will cause a nil error.
 email: lpluke5@gmail.comp
 please make the subject "Battleship Error Found"
 
