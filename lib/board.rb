@@ -32,8 +32,9 @@ attr_reader :rows, :columns, :cells
     end
 
     def valid_location?(coords)
-      #This method confirms there are not any other ships in the cell prior to placing
+      #This method confirms there is a Valid location to place the ship on.
       @cells.has_key?(coords)
+
     end
 
     def is_occupied?(ship, coords)
@@ -73,16 +74,19 @@ attr_reader :rows, :columns, :cells
       ship.length != coords.count
     end
 
+
     def valid_placement?(ship, coords)
       # This method will be an aggregate method that calls on other methods to confirm valid placement.
+
       return false if right_size(ship, coords)
       return false if is_occupied?(ship, coords)
+      #return false if !valid_location?(coords)
 
-      if check_alignment_num(coords) || check_alignment_char(coords)
+        if check_alignment_num(coords) || check_alignment_char(coords)
         true
-      else
+        else
         false
-      end
+        end
     end
 
     def render(board = false)
